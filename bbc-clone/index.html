@@ -151,7 +151,7 @@
 		}
 
 		h3.section-title {
-			font-color: #404040;
+			color: #686868;
 			text-decoration: underline;
 			text-underline-position: under;
 			text-decoration-color: #BB1919;
@@ -161,15 +161,26 @@
 		}
 
 		div.headline {
-			width: 60%;
+			width: 100%;
 			float: left;
+		}
+
+		div.headline-caption-outer {
+			width: 200px;
+			left: 18%;
+			position: relative;
+			float: left;
+		}
+
+		div.headline-caption {
+			width: 100%;
 		}
 
 		a#headline {
 			text-decoration: none;
 			position: relative;
-			left: 29%;
-			color: #222222;
+			left: 18%;
+			color: #686868;
 			font-weight: bold;
 			font-size: 200%;
 			font-family: Helmet, Freesans, Helvetica, Arial, sans-serif;
@@ -266,5 +277,14 @@
 		<div class="headline">
 			<a id="headline" href="http://www.bbc.co.uk/news/technology-35350789">Asda bug exposed payment details</a>
 		</div>
+
+        <div class="headline-caption-outer">
+		    <div class="headline-caption">
+		    	<p>Security vulnerabilities that put customers at risk have affected Asda's website for a couple of years, a security expert has revealed</p>
+		    </div>
+	    </div>
+	    <div class="headline-image">
+	    	<img src="asda.gif" width="200" height="200"/>
+	    </div>
 	</body>
 </html>
