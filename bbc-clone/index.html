@@ -4,8 +4,11 @@
 	<style type="text/css">
 
 		div.first-row {
+			width: 100%;
 			background-color: #FFFFFF;
-			height: 40px;
+		}
+
+		div.first-row-item {
 			border-color: #CCCCCC;
 			border-left: 0px;
 			border-right: 1px;
@@ -15,13 +18,12 @@
 			float: left;
 			text-align: center;
 			vertical-align: center;
-			padding: 5px;
 			font-style: bold;
+			display: table;
 		}
 
 		div.second-row {
 			background-color: #BB1919;
-			height: 60px;
 			width: 100%;
 			float: left;
 		}
@@ -48,6 +50,7 @@
 			padding: 5px;
 			font-size: 80%;
 			border-bottom: 0px solid #000;
+			display: table-cell;
 		}
 
 		div.empty-item {
@@ -72,13 +75,17 @@
 
 		button.local-news {
 			border-color: #BB4545;
-			background-color: #BB1919;
-			color: #FBFFFF;
-			height: 30px;
-			border: 1px;
+			background-color: #BB1919;*/
+			color: white;
+			border: 3px;
+			border-color: black;
 			position: relative;
 			left: 70%;
 			font-size: 120%;
+			margin-bottom: 5px;
+			margin-top: 5px;
+			/*padding-top: 15px;
+			padding-bottom: 15px;*/
 		}
 
 		#bbc-image-div {
@@ -90,7 +97,11 @@
 
 		div.third-row {
 			background-color: #A91717;
-			height: 40px;
+			width: 100%;
+			display: table;
+		}
+
+		div.third-row-item {
 			float: left;
 			border-right: 3px;
 			border-right-style: solid;
@@ -100,6 +111,7 @@
 			padding-right: 10px;
 			padding-left: 10px;
 			font-size: 90%;
+			display: table-cell;
 		}
 
 		div.third-row-parent {
@@ -118,11 +130,13 @@
 			font-family: Arial;
 			text-decoration: none;
 			text-align: center;
+			vertical-align: middle;
+			display: table-cell;
 			float: left;
 		}
 
 		div.third-row a.third-row-link:hover {
-			border-bottom: 3px solid white;
+			border-bottom: 1px solid white;
 		}
 
 		a#sport:hover {
@@ -148,6 +162,7 @@
 		div.section-title {
 			width: 100%;
 			float:  left;
+			width: 100%;
 		}
 
 		h3.section-title {
@@ -165,15 +180,35 @@
 			float: left;
 		}
 
-		div.headline-caption-outer {
-			width: 200px;
+		div.headline-outer {
+			width: 520;
 			left: 18%;
 			position: relative;
 			float: left;
+			border-style: solid;
+			border-bottom-width: 1px;
+			border-top-width: 0px;
+			border-left-width: 0px;
+			border-right-width: 1px;
+			border-bottom-color: #DBDBDB;
+			border-right-color: #DBDBDB;
+			padding-bottom: 10px;
+			padding-right: 10px;
 		}
 
 		div.headline-caption {
-			width: 100%;
+			width: 200px;
+			float: left;
+			padding-top: 3px;
+			font-family: Helmet, Freesans, Helvetica, Arial, sans-serif;
+			color: #686868;
+		}
+
+		div.headline-image {
+			padding-top: 5px;
+			padding-left: 5px;
+			width: 200px;
+			float: left;
 		}
 
 		a#headline {
@@ -193,98 +228,103 @@
 
 	</style>
 
-		<div id="bbc-image-div" class="first-row">
+	    <div class="first-row">
+		<div id="bbc-image-div" class="first-row-item">
 			<a href="http://www.bbc.co.uk"><img src="bbc-blocks-dark.png" id="bbc-image-img"/></a>
 		</div>
-		<div id="sign-in-div" class="first-row">
+		<div id="sign-in-div" class="first-row-item">
 			<a class="first-row-link" href="http://www.google.com">Sign in</a>
 		</div>
-		<div class="first-row empty-item">
+		<div class="first-row-item empty-item">
 			<a class="first-row-link" href="http://www.bbc.co.uk/technology"></a>
 		</div>
-		<div class="first-row">
+		<div class="first-row-item">
 			<a class="first-row-link" href="http://www.bbc.co.uk/news">News</a>
 		</div>
-		<div class="first-row">
+		<div class="first-row-item">
 			<a class="first-row-link" id="sport" href="http://www.bbc.co.uk/sport">Sport</a>
 		</div>
-		<div class="first-row">
+		<div class="first-row-item">
 			<a class="first-row-link" id="weather" href="http://www.bbc.co.uk/weather">Weather</a>
 		</div>
-		<div class="first-row">
+		<div class="first-row-item">
 			<a class="first-row-link" id="iplayer" href="http://www.bbc.co.uk/iplayer">iPlayer</a>
 		</div>						
-		<div class="first-row">
+		<div class="first-row-item">
 			<a class="first-row-link" id="tv" href="http://www.bbc.co.uk/tv">TV</a>
 		</div>
-		<div class="first-row">
+		<div class="first-row-item">
 			<a class="first-row-link" id="radio" href="http://www.bbc.co.uk/radio">Radio</a>
 		</div>
-		<div class="first-row" id="more-div">
+		<div class="first-row-item" id="more-div">
 			<a class="first-row-link" href="http://www.bbc.co.uk/technology#orb-footer">More</a>
 		</div>
-		<div class="first-row">
+		<div class="first-row-item">
 			<input type="text" id="first-row-search" placeholder="Search"/>
 			<a href="https://www.bbc.co.uk/search?q="><img src="orb-search-dark.png" style="background-color: #E4E4E4"/></a>
 		</div>
+	    </div>
 
 
 		<div class="second-row">
 			<button class="local-news">Find local news</button>
 		</div>
 		
-		<div class="third-row-parent third-row">
+		<div class="third-row">
+		<div class="third-row-parent third-row-item">
 			<a class="third-row-home-link" href="http://www. bbc.co.uk/news">News</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/uk">UK</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/world">World </a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/business">Business</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/politics">Politics</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/tech">Tech</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/science">Science</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/health">Health</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/education">Education</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/entertainment">Entertainment & Arts</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/video">Video & Audio</a>
 		</div>
-		<div class="third-row-child third-row">
+		<div class="third-row-item">
 			<a class="third-row-link" href="http://www.bbc.co.uk/news/business">More</a>
 		</div>
+	    </div>
 
 		<div class="section-title">
 			<h3 class="section-title">Technology</h3>
 		</div>
 
+
 		<div class="headline">
 			<a id="headline" href="http://www.bbc.co.uk/news/technology-35350789">Asda bug exposed payment details</a>
 		</div>
 
-        <div class="headline-caption-outer">
+        <div class="headline-outer">
 		    <div class="headline-caption">
 		    	<p>Security vulnerabilities that put customers at risk have affected Asda's website for a couple of years, a security expert has revealed</p>
 		    </div>
-	    </div>
-	    <div class="headline-image">
-	    	<img src="asda.gif" width="200" height="200"/>
+	        <div class="headline-image">
+	    	    <img src="asda.gif" width="320" height="180"/>
+	        </div>
 	    </div>
 	</body>
 </html>
