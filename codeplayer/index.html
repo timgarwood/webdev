@@ -1,0 +1,204 @@
+<html>
+    <body>
+        <div id="topBar">
+            <h3 id="title">CodePlayer</h3>
+            <div id="buttons">
+                <div class="codeButton" id="htmlButton">
+                    HTML
+                </div>
+                <div class="codeButton" id="cssButton">
+                    CSS
+                </div>
+                <div class="codeButton" id="javascriptButton">
+                    JavaScript
+                </div>
+                <div class="codeButton" id="outputButton">
+                    Output
+                </div>
+            </div>
+        </div>
+        <div id="labels">
+            <span class="label" id="htmlLabel">HTML</span>
+            <span class="label" id="cssLabel">CSS</span>
+            <span class="label" id="javascriptLabel">JavaScript</span>
+            <span class="label" id="outputLabel">Output</span>
+        </div>
+        <div id="inputs">
+            <textarea class="codeInput" id="htmlInput"></textarea>
+            <textarea class="codeInput" id="cssInput"></textarea>
+            <textarea class="codeInput" id="javascriptInput"></textarea>
+            <div id="outputInput" readonly></div>
+        </div>
+    </body>
+
+    <head>
+        <style type="text/css">
+            body {
+                margin: 0px;
+            }
+
+            #topBar {
+                background-color: #EEEEEE;
+                width: 100%;
+                height: 50px;
+            }
+
+            #title {
+                font-weight: bold;
+                font-family: Arial, Helvetica, sans-serif;
+                float: left;
+                margin: 10px;
+            }
+
+            #buttons {
+                margin: 0 auto;
+                background-color: red;
+                width: 250px;
+            }
+
+            .codeButton {
+                float: left;
+                border: 1px;
+                border-style: solid;
+                margin-top: 12px;
+                margin-bottom: 12px;
+                margin-right: 0px;
+                margin-left: 0px;
+                padding-left: 3px;
+                padding-right: 3px;
+            }
+
+            .codeButton:hover {
+                cursor: pointer;
+            }
+            
+            #htmlButton {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            #outputButton {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            #labels {
+                width: 100%;
+                height: 30px;
+                background-color: #DDDDFF;
+            }
+
+            .label {
+                width: 25%;
+                float: left;
+                font-weight: bold;
+                font-family: Arial, Helvetica, sans-serif;
+                margin-top: 5px;
+            }
+
+            #inputs {
+                width: 100%; 
+                overflow: hidden;
+            }
+
+            .codeInput {
+                float: left;
+                border-right: 1px;
+                border-style: solid;
+                width: 25%; 
+                height: 100%;
+                resize: horizontal;
+                max-width: 100%;
+            }
+
+        </style>
+
+        <script type="text/javascript" src="jQuery.min.js"></script>
+        <script type="text/javascript" src="jquery-ui.js"></script>
+        <script type="text/javascript">
+
+            var selectColor = "#DDDDFF";
+            var deselectColor = "#EEEEEE";
+
+            var buttons = ["#html", "#css", "#javascript", "#output"];
+
+            function setupClick(element) {
+                var jqButton = element + "Button";
+                var jqInput = element + "Input";
+                var jqLabel = element + "Label";
+
+                $(jqButton).click(function() {
+                if($(jqInput).css("display") == "none") {
+                    selectCodeButton(jqButton, jqInput, jqLabel);
+                } else {
+                    deselectCodeButton(jqButton, jqInput, jqLabel);
+                }
+            })};
+
+            // html button handler
+            setupClick("#html");
+            // css button handler
+            setupClick("#css");
+            // javascript button handler
+            setupClick("#javascript");
+            // output button handler
+            setupClick("#output");
+
+            // html input change handler
+            $('#htmlInput').change(function() {
+                constructOutput();
+            });
+            
+            // css input change handler
+            $("#cssInput").change(function() {
+                constructOutput();
+            });
+
+            // javascript input change handler
+            $("#javascriptInput").change(function() {
+                eval($("#javascriptInput").val());
+            });
+
+            // constructs the css output
+            function constructCss() {
+                return "<style type=\"text/css\">" + $("#cssInput").val() + "<\/style>";
+            }
+
+            // constructs the javascript output
+            function constructJavascript() {
+            }
+
+            // constructs the total output
+            function constructOutput() {
+                var output = "<html><body>" + $("#htmlInput").val() + "<\/body>";
+                output += "<head>" + constructCss() + "<\/head>";
+                output += "<\/html>";
+                $("#outputInput").html($.parseHTML(output));
+            }
+
+            // perform operations necessary for deselect
+            function deselectCodeButton(jqButton, jqInput, jqLabel) {
+                $(jqButton).css("background-color", deselectColor);
+                $(jqInput).css("display", "none");
+                $(jqLabel).hide();
+            }
+
+            // perform operations necessary for select
+            function selectCodeButton(jqButton, jqInput, jqLabel) {
+                $(jqButton).css("background-color", selectColor);
+                $(jqInput).css("display", "inline");
+                $(jqLabel).show();
+            }
+
+            // initialize the buttons and inputs
+            window.onload = function() {
+                // select HTML and Output by default
+                selectCodeButton("#htmlButton", "#htmlInput", "#htmlLabel");
+                selectCodeButton("#outputButton", "#outputInput", "#outputLabel");
+                deselectCodeButton("#cssButton", "#cssInput", "#cssLabel");
+                deselectCodeButton("#javascriptButton", "#javascriptInput", "#javascriptLabel");
+            }
+        </script>
+
+    </head>
+</html>
