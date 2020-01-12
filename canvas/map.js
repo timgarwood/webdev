@@ -1,26 +1,33 @@
 function getMapConfiguration() {
     return {
-        imgUrl: "./floor.jpg",
         locations: [
             {
                 name: "Warehouse A",
-                x: 20,
-                y:190
+                color: 'brown',
+                x: 100,
+                y: 100,
+                radius:80
             },
             {
                 name: "Warehouse B",
-                x: 81,
-                y: 94
+                color: 'brown',
+                x: 400,
+                y: 100,
+                radius:80
             },
             {
                 name: "Warehouse C",
-                x: 270,
-                y: 315 
+                color: 'brown',
+                x: 100,
+                y: 400, 
+                radius:80
             },
             {
                 name: "Warehouse D",
-                x: 548,
-                y: 262
+                color: 'brown',
+                x: 400,
+                y: 400,
+                radius:80
             }
         ]
     };

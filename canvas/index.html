@@ -27,9 +27,13 @@ function drawClock() {
 function drawMap() {
     var config = getMapConfiguration();
 
-    var img = document.getElementById("image");
-
-    ctx.drawImage(img, 0, 0);
+    for(var i = 0; i < config.locations.length; ++i) {
+        ctx.beginPath();
+        ctx.fillStyle = config.locations[i].color;
+        ctx.arc(config.locations[i].x, config.locations[i].y, config.locations[i].radius, 0, 2*Math.PI);
+        ctx.fillText(config.locations[i].name, config.locations[i].x, config.locations[i].y);
+        ctx.stroke();
+    }
 }
 
 function constructTravel(currentLocation, nextLocation) {
@@ -59,7 +63,7 @@ function drawTrackable(trackable) {
         let x = trackable.travel.path[trackable.travel.index].x;
         let y = trackable.travel.path[trackable.travel.index].y;
         ctx.arc(x, y, TrackableRadius, 0, 2 * Math.PI);
-        ctx.fillStyle = "lime";
+        ctx.fillStyle = trackable.color;
         ctx.fill();
         trackable.travel.index++;
 
@@ -94,7 +98,7 @@ function drawTrackable(trackable) {
 
                 ctx.beginPath();
                 ctx.arc(trackable.currentLocation.x, trackable.currentLocation.y, TrackableRadius, 0, 2 * Math.PI);
-                ctx.fillStyle = "lime";
+                ctx.fillStyle = trackable.color;
                 ctx.fill();
             }
         }
@@ -125,7 +129,8 @@ function animate() {
 }
 
 function createRows() {
-    trackables.push({currentLocation: null, travel: null, trackableName: 'Asset1'});
+    trackables.push({color: "lime", currentLocation: null, travel: null, trackableName: 'Asset1'});
+    trackables.push({color: "orange", currentLocation: null, travel: null, trackableName: 'Asset2'});
     trackables[0].rows = [];
     trackables[0].rows.push({discreteLocation: 'Warehouse A', locationTime: new Date('2020-01-12 12:00:00')});
     trackables[0].rows.push({discreteLocation: 'Warehouse B', locationTime: new Date('2020-01-12 12:00:05')});
@@ -137,6 +142,18 @@ function createRows() {
     trackables[0].rows.push({discreteLocation: 'Warehouse D', locationTime: new Date('2020-01-12 12:00:35')});
     trackables[0].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:40')});
     trackables[0].rows.push({discreteLocation: 'Warehouse B', locationTime: new Date('2020-01-12 12:00:45')});
+
+    trackables[1].rows = [];
+    trackables[1].rows.push({discreteLocation: 'Warehouse D', locationTime: new Date('2020-01-12 12:00:00')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse B', locationTime: new Date('2020-01-12 12:00:02')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:04')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse A', locationTime: new Date('2020-01-12 12:00:08')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse D', locationTime: new Date('2020-01-12 12:00:10')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:11')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse A', locationTime: new Date('2020-01-12 12:00:12')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse D', locationTime: new Date('2020-01-12 12:00:17')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:19')});
+    trackables[1].rows.push({discreteLocation: 'Warehouse A', locationTime: new Date('2020-01-12 12:00:20')});
 }
 
 window.onload = function() {
@@ -162,7 +179,6 @@ window.onload = function() {
     <div>
         <h1 id="clock">alsdjf</h1>
     </div>
-    <img id="image" width="615" height="380" src="./floor.jpg" hidden="true">
 </body>
 
 </html>
