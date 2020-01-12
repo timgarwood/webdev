@@ -1,0 +1,168 @@
+<html>
+<head>
+
+<script type="text/javascript" src="./map.js"></script>
+<script type="text/javascript">
+
+var MaxWidth = 1000;
+
+var canvas = null;
+var ctx = null;
+var simulationTime = null;
+var timeOffset = null;
+
+var timeIncrement = new Date();
+timeIncrement.setSeconds(0);
+
+var trackables = [];
+var locations = [];
+
+var TrackableRadius = 10;
+
+function drawClock() {
+    var clock = document.getElementById("clock");
+    clock.innerText = simulationTime.toLocaleString();
+}
+
+function drawMap() {
+    var config = getMapConfiguration();
+
+    var img = document.getElementById("image");
+
+    ctx.drawImage(img, 0, 0);
+}
+
+function constructTravel(currentLocation, nextLocation) {
+    var travel = {
+        index: 0,
+        path: []
+    };
+    let dy = nextLocation.y - currentLocation.y;
+    let dx = nextLocation.x - currentLocation.x;
+    let numPoints = 50;
+    for(let i = 0; i < numPoints; ++i) {
+        travel.path.push({
+            x: currentLocation.x + ((i+1)*(dx/numPoints)),
+            y: currentLocation.y + ((i+1)*(dy/numPoints))
+        });
+    }
+
+    return travel;
+}
+
+function drawTrackable(trackable) {
+
+    var config = getMapConfiguration();
+
+    if(trackable.travel != null) {
+        ctx.beginPath();
+        let x = trackable.travel.path[trackable.travel.index].x;
+        let y = trackable.travel.path[trackable.travel.index].y;
+        ctx.arc(x, y, TrackableRadius, 0, 2 * Math.PI);
+        ctx.fillStyle = "lime";
+        ctx.fill();
+        trackable.travel.index++;
+
+        if(trackable.travel.index >= trackable.travel.path.length) {
+            trackable.travel = null;
+            trackable.currentLocation = null;
+        }
+    } else {
+        let candidates = [];
+        var rows = trackable.rows;
+
+        for(let r = 0; r < rows.length; ++r) {
+            if(simulationTime > rows[r].locationTime) {
+                candidates.push(rows[r]);
+            }
+        }
+        
+        if(candidates.length > 0) {
+            var row = candidates[candidates.length - 1];
+            var nextLocation = config.locations.find(l => l.name == row.discreteLocation);
+            // check for a change in location
+            // if the location changed, contruct an array
+            // of points to 'travel' through 
+            if(trackable.currentLocation != null && 
+               trackable.currentLocation.name != nextLocation.name) {
+                trackable.travel = constructTravel(trackable.currentLocation, nextLocation);
+            } else {
+                // location didn't change, so no travel
+                // draw the trackable at its current location
+                trackable.travel = null;
+                trackable.currentLocation = nextLocation;
+
+                ctx.beginPath();
+                ctx.arc(trackable.currentLocation.x, trackable.currentLocation.y, TrackableRadius, 0, 2 * Math.PI);
+                ctx.fillStyle = "lime";
+                ctx.fill();
+            }
+        }
+    }
+}
+
+function updateTime() {
+    simulationTime = new Date(Date.now() - timeOffset);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawMap();
+    
+    drawClock();
+
+    for(let i = 0; i < trackables.length; ++i) {
+        drawTrackable(trackables[i]);
+    }
+    
+    var traveler = trackables.find(r => r.travel != null);
+    if(traveler == null) {
+       updateTime();
+    }
+}
+
+function createRows() {
+    trackables.push({currentLocation: null, travel: null, trackableName: 'Asset1'});
+    trackables[0].rows = [];
+    trackables[0].rows.push({discreteLocation: 'Warehouse A', locationTime: new Date('2020-01-12 12:00:00')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse B', locationTime: new Date('2020-01-12 12:00:05')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:10')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse D', locationTime: new Date('2020-01-12 12:00:15')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:20')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse A', locationTime: new Date('2020-01-12 12:00:25')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse B', locationTime: new Date('2020-01-12 12:00:30')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse D', locationTime: new Date('2020-01-12 12:00:35')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse C', locationTime: new Date('2020-01-12 12:00:40')});
+    trackables[0].rows.push({discreteLocation: 'Warehouse B', locationTime: new Date('2020-01-12 12:00:45')});
+}
+
+window.onload = function() {
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext('2d');
+    
+    createRows();
+
+    simulationTime = trackables[0].rows[0].locationTime;
+    timeOffset = Date.now() - trackables[0].rows[0].locationTime;
+
+    animate();
+}
+
+</script>
+
+</head>
+
+<body>
+    <div>
+        <canvas id="myCanvas" width="1000" height="500"></canvas>
+    </div>
+    <div>
+        <h1 id="clock">alsdjf</h1>
+    </div>
+    <img id="image" width="615" height="380" src="./floor.jpg" hidden="true">
+</body>
+
+</html>
